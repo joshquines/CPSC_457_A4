@@ -1,12 +1,26 @@
 import java.util.concurrent.*;
 
-public class DSM{
-    LocalMemory readLocalMem = new LocalMemory();
-    public int load (String x){
-        return this.readLocalMem.get(x);
+/**
+ * name
+ */
+public class DSM implements Runnable{
+    private LocalMemory localMem = new LocalMemory();
+    private BroadcastAgent broadcastAgent;
+
+    public DSM(int size){
+        localMem = new LocalMemory(size);
+        broadCastAgent = new BroadcastAgent();
     }
-    public int store(v,x){
-        this.readLocalMem.put(v,x);
+
+    public String load (int x){
+        return this.localMem.get(x);
+    }
+    public void store(String v,int x){
+        this.localMem.put(v,x);
         // Do broadcast stuff
+    }
+
+    public void run(){
+
     }
 }
