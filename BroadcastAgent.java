@@ -5,6 +5,9 @@ public class BroadcastAgent implements Runnable{
     
     public BroadcastAgent(){
 
+        LocalMemory mem = new LocalMemory();
+
+
     }
 
     public void Broadcast(String y){
@@ -12,6 +15,7 @@ public class BroadcastAgent implements Runnable{
     }
 
     public void receive(){
+
 
     }
 
