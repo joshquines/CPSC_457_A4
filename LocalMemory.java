@@ -9,9 +9,10 @@ store(x,v): stores the value v of x to memory
 public class LocalMemory{
 
     private ConcurrentHashMap<String, Integer> memory;
+    public int memSize = 200;
 
-    public LocalMemory(int size){
-        memory = new ConcurrentHashMap<String, Integer>(size);
+    public LocalMemory(){
+        memory = new ConcurrentHashMap<String, Integer>(memSize);
     }  
     public String load(int x){
         return this.memory.get(x);
