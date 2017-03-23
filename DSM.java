@@ -4,12 +4,12 @@ import java.util.concurrent.*;
  * name
  */
 public class DSM implements Runnable{
-    private LocalMemory localMem = new LocalMemory();
+    private LocalMemory localMem;
     private BroadcastAgent broadcastAgent;
 
-    public DSM(int size){
-        localMem = new LocalMemory(size);
-        broadCastAgent = new BroadcastAgent();
+    public DSM(LocalMemory la, BroadcastAgent ba){
+        localMem = la;
+        broadCastAgent = ba;
     }
 
     public String load (int x){
@@ -21,6 +21,6 @@ public class DSM implements Runnable{
     }
 
     public void run(){
-
+        
     }
 }
