@@ -7,8 +7,8 @@ public class DSM implements Runnable{
     private LocalMemory localMem;
     private BroadcastAgent broadcastAgent;
 
-    public DSM(LocalMemory la, BroadcastAgent ba){
-        localMem = la;
+    public DSM(LocalMemory lm, BroadcastAgent ba){
+        localMem = lm;
         broadCastAgent = ba;
     }
 
