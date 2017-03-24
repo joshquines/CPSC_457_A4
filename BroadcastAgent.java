@@ -3,9 +3,11 @@
  */
 public class BroadcastAgent implements Runnable{
     
-    public BroadcastAgent(){
-
-        LocalMemory mem = new LocalMemory();
+    private LocalMemory lMemory;
+    public BroadcastAgent(BroadcastSystem bcs, LocalMemory lMemory){
+        this.lMemory = lMemory;
+        bcs.addAgent(this);
+        
 
     }
 

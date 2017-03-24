@@ -4,8 +4,9 @@ public class Main{
 
         LocalMemory lm = new LocalMemory();
         
-        BroadcastAgent ba = new BroadcastAgent();
-        DSM dsm = new DSM(lm, ba);
+        //BroadcastAgent ba;// = new BroadcastAgent();
+        BroadcastSystem broadcastSystem = new BroadcastSystem();
+        DSM dsm  = new DSM(lm, broadcastSystem);
 
         Processor processor = new Processor(dsm);
         

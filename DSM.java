@@ -7,9 +7,9 @@ public class DSM implements Runnable{
     private LocalMemory localMem;
     private BroadcastAgent broadcastAgent;
 
-    public DSM(LocalMemory lm, BroadcastAgent ba){
+    public DSM(LocalMemory lm, BroadcastSystem bcs){
         localMem = lm;
-        broadCastAgent = ba;
+        broadCastAgent = new BroadcastAgent(bcs, localMem);
     }
 
     public String load (int x){
