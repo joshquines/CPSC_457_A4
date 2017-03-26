@@ -13,10 +13,10 @@ public class BroadcastAgent implements Runnable{
     private BroadcastSystem bSystem;
 
     public void broadcast(String y, int x){
-      // Call BroadcastSystem.broadcast()
+      
       String key = y;
       int value = x;
-      bsystem.broadcast(key, value);
+      
 
     }
 
