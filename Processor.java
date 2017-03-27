@@ -88,25 +88,6 @@ public class Processor implements Runnable{
         flag[ID] = -1;        
     }
 	
-	// Q1
-	// Call this when tokenRing is off
-	public synchronized void tokenRingOff(){
-		// From Assignment page 
-		j = 10;
-		turn[j] = ID;
-		/*
-		dsm.store(turn, i)
-		- stores (turn,i) in localMemory
-		- broadcasts (turn, i ) to broadcastAgeng
-		*/
-		dsm.store(turn, ID);
-	
-	}
-	
-	// Q3
-	public synchronized void singleToken(){
-		
-	}
 
     public void run(){
     
