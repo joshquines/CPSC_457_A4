@@ -90,8 +90,29 @@ public class Processor implements Runnable{
 	
 
     public void run(){
-    
         new dsm().currentThread().start();
+
+        // 10 processes
+        int n = 10;
+        for (int i=0; i < n; i++){
+            int id = i;
+            String index = "flag[" + id + "]";
+            
+            /*
+            dsm.store(key,val)
+            - stores to localMemory 
+            - calls broadcastAgent
+            */
+            dsm.store(index, i);
+
+            lock();
+            // ENTER CRITICAL SECTION 
+
+            // UNLOCK AFTER CRITICAL 
+            unlock();
+        }
+    
+        
         
         // maybe 
         // lock();
