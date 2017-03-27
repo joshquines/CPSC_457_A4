@@ -10,7 +10,8 @@ public class Main{
 
         // Start BroadcastSystem thread
         BroadcastSystem BCS = BroadcastSystem.getBroadcastSys();
-        new BCS().currentThread().start();
+        new Thread(new BCS.currentThread()).start();
+        //new BCS().currentThread().start();
         
         //create flag and turn arrays
         int[] flag = new int[NPROCESSORS];
@@ -26,7 +27,7 @@ public class Main{
         // for each process, create a dsm and execute
         for(int i=0;i<NPROCESSORS;i++){
             //DSM dsm  = new DSM(localMemory, BCS);
-            executor.execute(new Processor(i, flag, turn, localMemory, BCS));    
+            pool.execute(new Processor(i, flag, turn, localMemory, BCS));    
         }
         
        

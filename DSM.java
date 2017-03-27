@@ -5,25 +5,25 @@ import java.util.concurrent.*;
  */
 public class DSM implements Runnable{
     private LocalMemory localMem;
-    private BroadcastAgent broadcastAgent;
+    private BroadcastAgent broadCastAgent;
 
     public DSM(LocalMemory lm, BroadcastSystem BCS){
         localMem = lm;
-        broadCastAgent = new BroadcastAgent(bcs, localMem);
+        broadCastAgent = new BroadcastAgent(BCS, localMem);
         
     }
 
     public int load (String key){
-        return this.localMem.get(key);
+        return this.localMem.load(key);
     }
     
     public void store(String key,int value){
-        this.localMem.put(key,value);
+        this.localMem.store(key,value);
         // Do broadcast stuff
         broadCastAgent.broadcast(key,value);
     }
 
     public void run(){
-        new broadCastAgent.currentThread().start();
+        new BroadcastAgent.currentThread().start();
     }
 }
