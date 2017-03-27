@@ -1,11 +1,11 @@
 import java.util.concurrent.*;
 public class Main{
     private static int NPROCESSORS = 10;
-
+    public static int counter= 0;
     public static void main(String[] args){
         //test
 
-        int counter = 0;
+        //static int counter = 0;
 
         // initialize local memory
         LocalMemory localMemory = new LocalMemory();        

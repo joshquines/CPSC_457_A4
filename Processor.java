@@ -32,7 +32,7 @@ public class Processor implements Runnable{
     //private int i;
     private int j;
     private int n; // # of processes
-    public int counter; 
+    public static int counter; 
     private boolean exists;
 
     private DSM dsm;
