@@ -32,6 +32,9 @@ public class Main{
             pool.execute(new Processor(i, flag, turn, counter, localMemory, BCS));    
         }
         
-       
+        pool.shutdown();
+	    // Wait until all threads are finish
+		while (!pool.isTerminated()) {		}
+        System.out.println("All Processes are finished");
     }
 }
