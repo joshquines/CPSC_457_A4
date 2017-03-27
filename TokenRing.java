@@ -26,6 +26,7 @@ public class TokenRing implements Runnable{
         // add RingAgent to ArrayList
         ringAgentList.add(ringAgent);
         ringAgent.setActive(isActive);
+        
     }
 
     public ArrayList<TokenRingAgent> getRingList(){
@@ -55,8 +56,14 @@ public class TokenRing implements Runnable{
 
     // Start the Token Ring aka pass the token around
     public void run(){
+        while (ringAgentList.size() != 10){
+            // YIELD UNTIL ALL TOKENRINGAGENTS IN ringAtengList 
+        }
 
-        // PASS THE RING TOKEN AROUND
+        // PASS TOKEN
+        while(true){
+
+        }
 
 
     }
