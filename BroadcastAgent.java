@@ -1,32 +1,33 @@
+import java.util.concurrent.*;
+
 /**
  * name
  */
 public class BroadcastAgent implements Runnable{
     
     private LocalMemory lMemory;
+    public ConcurrentLinkedDeque<QueueItem> queue;
+    
+    
     public BroadcastAgent(BroadcastSystem bcs, LocalMemory lMemory){
+        
         this.lMemory = lMemory;
         bcs.addAgent(this);
-        
-
-    }
-    private BroadcastSystem bSystem;
-
-    public void broadcast(String y, int x){
-      
-      String key = y;
-      int value = x;
-      
+        this.queue = bcs.getQueue();
 
     }
 
-    public void receive(String y, int x){
-        
-        // Index = y, value = x
-        String storeKey = y;
-        int storeValue = x;
-        lmemory.store(storeKey,storeValue);
+  
+    // Broadcasts <key,int> pair to BroadcastSystem
+    public void broadcast(String key, int value){
+        QueueItem item = new QueueItem(key,value);
+        queue.add(item);
+    }
 
+    // Receives <key, int> pair from BroadcastSystem
+    // Stores <key, int> pair to local memory which BroadcastAgent belongs to
+    public void receive(String key, int value){
+        lMemory.store(key,value);
     }
 
     public void run(){

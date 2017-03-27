@@ -1,4 +1,4 @@
-asdfasdfas
+
 /**
  * name
  */
@@ -24,50 +24,98 @@ asdfasdfas
  
 public class Processor implements Runnable{
 
-    private int turn;
-    private int processes; // # of processes 
-    private boolean flag[]; //playerBoard 
-    private boolean turn[]; //levelBoard
-    private int i;
+    //private int turn;
+    //private int processes; // # of processes 
+    private int flag[]; //playerBoard 
+    private int turn[]; //levelBoard
+    private int ID;
+    //private int i;
     private int j;
-    private int n; //critical section level 
+    private int n; // # of processes
     private int counter; 
+    private boolean exists;
 
     private DSM dsm;
     
-    public void lock(){
+    public Processor(int ID, int[] flag, int[] turn, LocalMemory localMem, BroadcastSystem BCS){
+        //this.dsm = dsm;
+        this.ID = ID;
+        this.flag = flag;
+        this.turn = turn;
+        this.n = flag.length;
+        this.dsm = new DSM(localMem, BCS);
+    }
+    
+    public synchronized void lock(){
+        // processes will be stuck here until they get to level n (crit section)
+        // so the ones that exit lock() are in the critical section
         // Algorithm from tutorial slides
         for(j=0; j < n-2; j++){
-            flag[i] = j; //player writes level j to their playerBoard 
-            turn[j] = i; //player writes id to level j board 
+            flag[ID] = j; //player writes level j to their playerBoard 
+            turn[j] = ID; //player writes id to level j board 
             
             //While there is another process at a higher level and the board at the
             //current level has the id of ith player on the level board
             //stay in current level 
             
             //Loop through all the players 
-            for(k = 0; k < processes; i++){
+            /*
+            for(int k = 0; k < processes; i++){
                 while((flag[k] >= j) && (turn[i] == j)){
                     nop; 
                 }
             }
+            */
+            // Code from Critical Sections Slide 68
+            do {
+	            exists = false;
+	            for (int k = 0; k < n; k ++){
+	                if (k != ID){                       // if there exists a k != i
+	                    if (flag[k] >= j) {             // at a higher level
+		                    exists = true;             
+		                    break; 
+	                    }
+                    }
+                }
+            } while (exists && turn[j] == ID);
+
         }
-    public void unlock(){
+    }
+    
+    public synchronized void unlock(){
         // player writes -1 to personal board 
         // I think this is after player[i] reaches critical section 
-        flag[i] = -1;        
+        flag[ID] = -1;        
     }
+	
+	// Q1
+	// Call this when tokenRing is off
+	public synchronized void tokenRingOff(){
+		// From Assignment page 
+		j = 10;
+		turn[j] = ID;
+		/*
+		dsm.store(turn, i)
+		- stores (turn,i) in localMemory
+		- broadcasts (turn, i ) to broadcastAgeng
+		*/
+		dsm.store(turn, ID);
+	
+	}
+	
+	// Q3
+	public synchronized void singleToken(){
+		
+	}
 
-    
-    }
-
-    public Processor(DSM dsm){
-        this.dsm = dsm;
-    }
-    
     public void run(){
     
-
+        new dsm().currentThread().start();
+        
+        // maybe 
+        // lock();
+        // critical section
+        // unlock();
 
     }
 }

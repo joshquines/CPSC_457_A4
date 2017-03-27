@@ -1,15 +1,17 @@
 /**
  * TokenRingAgent
  */
-public class TokenRingAgent {
+public class TokenRingAgent implements Runnable {
     
+    private int tokenID, processorID, ringPredID, ringSuccID;
+    private boolean active;
     // Init 
-    private boolean flagToken[];
-    flagToken[0] = true;
+    //private boolean flagToken[];
+    //flagToken[0] = true;
 
     public TokenRingAgent () {
 
-      
+    }
         // For this part, what I think it does is 
       
         // Processor will have a enteredCrit() method 
@@ -28,5 +30,16 @@ public class TokenRingAgent {
         
         */
         
+    public Token ReceiveToken(){
+        
     }
+    
+    public void SendToken(Token t){
+        
+    }
+    
+    public void run(){
+        
+    }
+    
 }

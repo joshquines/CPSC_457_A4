@@ -14,11 +14,11 @@ public class LocalMemory{
     public LocalMemory(){
         memory = new ConcurrentHashMap<String, Integer>(memSize);
     }  
-    public String load(int x){
+    public int load(String x){
         return this.memory.get(x);
     }
 
-    public void store(String v, int x){
-        this.memory.put(v, x);
+    public void store(String x, int v){
+        this.memory.put(x, v);
     }
 }
