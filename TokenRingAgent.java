@@ -16,6 +16,7 @@ public class TokenRingAgent implements Runnable {
     }
 
     public Token ReceiveToken(){
+        
         // receive from succ 
         return token;
     }

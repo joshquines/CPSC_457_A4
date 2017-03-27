@@ -1,0 +1,52 @@
+/**
+ * TokenRing
+ */
+
+import java.util.concurrent.*;
+import java.util.ArrayList;
+
+// Consists of individual TokenRingAgents 
+// If TokenTing active, create token
+// pass token to initially designated TokenRingAgent
+// Can be more than one TokenRing instances with diff token messages
+public class TokenRing extends Thread{
+    private int tokenRingID;
+    private Token token;
+    private ArrayList<TokenRingAgent> agentsList;
+    private ConcurrentLinkedQueue<TokenRingAgent> agentList;
+    private int agentListIndex; // index 0 has the token
+
+    public TokenRing (int tokenRingID) {
+        this.tokenRingID = tokenRingID;
+
+
+    }
+
+
+
+    // Start the Token Ring aka pass the token around
+    public void run(){
+
+        while(true){
+
+            try{
+                // Head(current Token holder) is now the predessor. Remove it to shift the queue
+                predecessor = agentList.poll();
+                // Add it back to the queue
+                agentList.add(predessor);
+                // New head is now the current tokenHolder. It is the successor
+                successor = agentList.peek();
+            }catch(Exception e){
+                System.out.println("Queue is empty");
+            }
+
+
+            // Set successor and predecssor 
+            predecessor.setPre(); // Passes the token to Successor
+            successor.setSucc(); // Receives the token from Successor 
+
+        }
+
+    }
+}
+

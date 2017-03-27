@@ -9,38 +9,57 @@ import java.util.ArrayList;
 // If TokenTing active, create token
 // pass token to initially designated TokenRingAgent
 // Can be more than one TokenRing instances with diff token messages
-public class TokenRing extends Thread{
+public class TokenRing implements Runnable{
+
     private int tokenRingID;
     private Token token;
-    private ArrayList<TokenRingAgent> agentsList;
-    private int agentListIndex; // index 0 has the token
+    // Array of TokenRingAgents
+    private ArrayList<TokenRingAgent> ringAgentList;
+    private boolean isActive;
 
-    public TokenRing (int tokenRingID) {
-        this.tokenRingID = tokenRingID;
+    public TokenRing () {
+        ringAgentList = new ArrayList<TokenRingAgent>();
+        isActive = true;
+    }
+
+    public void addRingAgent(TokenRingAgent ringAgent){
+        // add RingAgent to ArrayList
+        ringAgentList.add(ringAgent);
+        ringAgent.setActive(isActive);
+    }
+
+    public ArrayList<TokenRingAgent> getRingList(){
+        return ringAgentList;
+    }
+
+    public void setStatus(){
+
+        int x = ringAgentList.size();
+        while(true){
+
+            for (int i = 0; i < x; i++){
+
+                // if i = 0
+                if(i == 0){
+
+                }
+
+
+                // if i = x-1
+
+            }
 
 
     }
 
-    public setSucc(){
-        // Get index + 1 ; the next in arrayList
-        successor = agentList[index + 1].getId();
-
-        // Successor gets token
-        
-
-        // Get index -1 ; the predecessor
-
-        // Set predecessor as last, 
-
-    }
-
-    public setPred(){
-
-    }
 
     // Start the Token Ring aka pass the token around
     public void run(){
 
+        // PASS THE RING TOKEN AROUND
+
+
     }
+
 }
 
