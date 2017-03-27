@@ -10,7 +10,7 @@ public class Main{
 
         // Start BroadcastSystem thread
         BroadcastSystem BCS = BroadcastSystem.getBroadcastSys();
-        new Thread(new BCS.currentThread()).start();
+        new Thread(BCS).start();
         //new BCS().currentThread().start();
         
         //create flag and turn arrays

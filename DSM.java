@@ -24,6 +24,6 @@ public class DSM implements Runnable{
     }
 
     public void run(){
-        new BroadcastAgent.currentThread().start();
+        new Thread(broadCastAgent).start();
     }
 }

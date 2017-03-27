@@ -90,7 +90,7 @@ public class Processor implements Runnable{
 	
 
     public void run(){
-        new dsm().currentThread().start();
+        new Thread(dsm).start();
 
         // 10 processes
         int n = 10;

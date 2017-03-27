@@ -3,6 +3,7 @@
  */
 public class TokenRingAgent implements Runnable {
     
+    private Token token;
     private int tokenID, processorID, ringPredID, ringSuccID;
     private boolean active;
     // Init 
@@ -31,7 +32,7 @@ public class TokenRingAgent implements Runnable {
         */
         
     public Token ReceiveToken(){
-        
+        return token;
     }
     
     public void SendToken(Token t){
