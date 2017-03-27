@@ -91,26 +91,28 @@ public class Processor implements Runnable{
 
     public void run(){
         new Thread(dsm).start();
+        
+        String flagID = "flag[" + ID + "]";   
+        /*
+        dsm.store(key,val)
+        - stores to localMemory 
+        - calls broadcastAgent
+        */
+        dsm.store(flagID, i);
 
-        // 10 processes
-        int n = 10;
-        for (int i=0; i < n; i++){
-            int id = i;
-            String index = "flag[" + id + "]";
-            
-            /*
-            dsm.store(key,val)
-            - stores to localMemory 
-            - calls broadcastAgent
-            */
-            dsm.store(index, i);
+        /*
+        Write current process to ID 
+        */
+        String turnID = "turn[" + "]";
 
-            lock();
-            // ENTER CRITICAL SECTION 
 
-            // UNLOCK AFTER CRITICAL 
-            unlock();
-        }
+        lock();
+        // ENTER CRITICAL SECTION 
+        System.out.println(flag + " has entered the critical section");
+
+        // UNLOCK AFTER CRITICAL 
+        unlock();
+        
     
         
         
