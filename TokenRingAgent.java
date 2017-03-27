@@ -10,32 +10,17 @@ public class TokenRingAgent implements Runnable {
     //private boolean flagToken[];
     //flagToken[0] = true;
 
-    public TokenRingAgent () {
-
+    public TokenRingAgent (int processorID) {
+        this.processorID = processorID;
     }
-        // For this part, what I think it does is 
-      
-        // Processor will have a enteredCrit() method 
-      
-        // if player[i] entered critical method 
-            // enteredCrit(i) 
-        /*
-        enteredCrit(int i){
-            hasToken(i, false);
-            hasToken(i-1, true);
-        }
-        
-        hasToken(int i, bool t){
-            playerToken[i] = t;
-        }
-        
-        */
-        
+
     public Token ReceiveToken(){
+        // receive from succ 
         return token;
     }
     
-    public void SendToken(Token t){
+    public void SendToken(Token token){
+        this.token = token;
         
     }
     
