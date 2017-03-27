@@ -26,13 +26,13 @@ public class Processor implements Runnable{
 
     //private int turn;
     //private int processes; // # of processes 
-    private int flag[]; //playerBoard 
-    private int turn[]; //levelBoard
+    private int[] flag; //playerBoard 
+    private int[] turn; //levelBoard
     private int ID;
     //private int i;
     private int j;
     private int n; // # of processes
-    private int counter; 
+    private volatile int counter = 0; 
     private boolean exists;
 
     private DSM dsm;
@@ -91,24 +91,28 @@ public class Processor implements Runnable{
 
     public void run(){
         new Thread(dsm).start();
+        lock();
+        /*
+        Write current process to ID 
+        */
+        String turnID = "turn[" + counter + "]";
+        // ENTER CRITICAL SECTION
+        System.out.println(flag + " has entered the critical section");
+
         
-        String flagID = "flag[" + ID + "]";   
         /*
         dsm.store(key,val)
         - stores to localMemory 
         - calls broadcastAgent
         */
-        dsm.store(flagID, i);
 
-        /*
-        Write current process to ID 
-        */
-        String turnID = "turn[" + "]";
+        dsm.store(turnID, ID);
+        counter++;
 
 
-        lock();
-        // ENTER CRITICAL SECTION 
-        System.out.println(flag + " has entered the critical section");
+
+
+
 
         // UNLOCK AFTER CRITICAL 
         unlock();
