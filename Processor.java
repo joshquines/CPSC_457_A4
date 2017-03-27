@@ -32,16 +32,17 @@ public class Processor implements Runnable{
     //private int i;
     private int j;
     private int n; // # of processes
-    private volatile int counter = 0; 
+    public int counter; 
     private boolean exists;
 
     private DSM dsm;
     
-    public Processor(int ID, int[] flag, int[] turn, LocalMemory localMem, BroadcastSystem BCS){
+    public Processor(int ID, int[] flag, int[] turn,int counter, LocalMemory localMem, BroadcastSystem BCS){
         //this.dsm = dsm;
         this.ID = ID;
         this.flag = flag;
         this.turn = turn;
+        this.counter=counter;
         this.n = flag.length;
         this.dsm = new DSM(localMem, BCS);
     }
@@ -85,19 +86,22 @@ public class Processor implements Runnable{
     public synchronized void unlock(){
         // player writes -1 to personal board 
         // I think this is after player[i] reaches critical section 
-        flag[ID] = -1;        
+        flag[ID] = -1;     
     }
 	
 
-    public void run(){
+    public synchronized void run(){
         new Thread(dsm).start();
+        // ENTRY SECTION
         lock();
+
+        //CRITICAL SECTION
         /*
         Write current process to ID 
         */
-        String turnID = "turn[" + counter + "]";
-        // ENTER CRITICAL SECTION
-        System.out.println(flag + " has entered the critical section");
+        String turnID = "turn " + counter;
+        
+        System.out.println("Process " + ID + " has entered the critical section on " + turnID);
 
         
         /*
@@ -109,17 +113,10 @@ public class Processor implements Runnable{
         dsm.store(turnID, ID);
         counter++;
 
-
-
-
-
-
-        // UNLOCK AFTER CRITICAL 
+        // EXIT SECTION 
         unlock();
         
-    
-        
-        
+            
         // maybe 
         // lock();
         // critical section

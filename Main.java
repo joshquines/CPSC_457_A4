@@ -5,6 +5,8 @@ public class Main{
     public static void main(String[] args){
         //test
 
+        int counter = 0;
+
         // initialize local memory
         LocalMemory localMemory = new LocalMemory();        
 
@@ -27,7 +29,7 @@ public class Main{
         // for each process, create a dsm and execute
         for(int i=0;i<NPROCESSORS;i++){
             //DSM dsm  = new DSM(localMemory, BCS);
-            pool.execute(new Processor(i, flag, turn, localMemory, BCS));    
+            pool.execute(new Processor(i, flag, turn, counter, localMemory, BCS));    
         }
         
        
