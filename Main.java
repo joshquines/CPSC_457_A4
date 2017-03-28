@@ -19,7 +19,7 @@ public class Main{
         BroadcastSystem BCS = BroadcastSystem.getBroadcastSys();
         new Thread(BCS).start();
         
-        TokenRing tokenRing = new TokenRing(1, dsmstore);
+        TokenRing tokenRing = new TokenRing(0, dsmstore);
         // start TokenRing thread
         new Thread(tokenRing).start();
 

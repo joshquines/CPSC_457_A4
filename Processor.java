@@ -105,5 +105,6 @@ public class Processor implements Runnable{
         // EXIT SECTION 
         System.out.println("Process "+ ID + " entering EXIT SECTION");
         unlock();
+        System.out.println("unlocked");
     }
 }

@@ -73,8 +73,8 @@ public class TokenRing implements Runnable{
         // The token gets passed by iterating through the arrayList
 
         while(flag){ 
-            while(!dsmstore){}
-
+            while(!dsmstore){System.out.println("not stored");}
+            System.out.println("sending token to successor");
             tokenRingID = ringAgentList.get(token.getID());
             tokenRingID.SendToken(token); 
             dsmstore = false;

@@ -34,7 +34,7 @@ public class DSM implements Runnable{
         return this.localMem.load(key);
     }
     
-    public void store(String key,int value){
+    public synchronized void store(String key,int value){
         System.out.println("trying to store");
         dsmstore = false;
         while(!tokenRingAgent.hasToken){ System.out.println("checking token");}
