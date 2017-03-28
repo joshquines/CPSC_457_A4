@@ -10,14 +10,14 @@ public class BroadcastAgent implements Runnable{
     
     private LocalMemory lMemory;
     public ConcurrentLinkedDeque<QueueItem> queue;
+    private BroadcastSystem bcs;
     
     
     public BroadcastAgent(BroadcastSystem bcs, LocalMemory lMemory){
-        
+        this.bcs = bcs;
         this.lMemory = lMemory;
         bcs.addAgent(this);
         this.queue = bcs.getQueue();
-
     }
 
   
@@ -34,7 +34,7 @@ public class BroadcastAgent implements Runnable{
     }
 
     public void run(){
-
+        while(bcs.flag){}
     }
 
 }

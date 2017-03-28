@@ -9,14 +9,16 @@
 public class DSM implements Runnable{
     private LocalMemory localMem;
     private BroadcastAgent broadCastAgent;
+    private BroadcastSystem bcs;
     /**
      * Constructor
      *  @param lm       reference to local memory
      *  @param BCS      reference to BroadcastSystem
      */
-    public DSM(LocalMemory lm, BroadcastSystem BCS){
+    public DSM(LocalMemory lm, BroadcastSystem bcs){
+        this.bcs = bcs;
         localMem = lm;
-        broadCastAgent = new BroadcastAgent(BCS, localMem);
+        broadCastAgent = new BroadcastAgent(bcs, localMem);
         
     }
 
@@ -34,5 +36,6 @@ public class DSM implements Runnable{
     public void run(){
         // start BroadcastAgent Thread
         new Thread(broadCastAgent).start();
+        while(bcs.flag){}
     }
 }
