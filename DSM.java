@@ -11,16 +11,18 @@ public class DSM implements Runnable{
     private LocalMemory localMem;
     private BroadcastAgent broadCastAgent;
     private BroadcastSystem bcs;
+    private TokenRingAgent tokenRingAgent;
 
     /**
      * Constructor
      *  @param lm       reference to local memory
      *  @param BCS      reference to BroadcastSystem
      */
-    public DSM(LocalMemory lm, BroadcastSystem BCS){
+    public DSM(LocalMemory lm, BroadcastSystem BCS, TokenRing tokenRing){
         this.bcs = bcs;
         localMem = lm;
         broadCastAgent = new BroadcastAgent(BCS, localMem);
+        tokenRingAgent = new TokenRingAgent(ID, tokenRing.isActive, tokenRing.token.getID());
         
     }
 

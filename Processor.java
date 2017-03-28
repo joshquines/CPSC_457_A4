@@ -17,14 +17,15 @@ public class Processor implements Runnable{
 
     private DSM dsm;
     
-    public Processor(int ID, int[] flag, int[] turn,int counter, LocalMemory localMem, BroadcastSystem BCS){
+    
+    public Processor(int ID, int[] flag, int[] turn,int counter, LocalMemory localMem, BroadcastSystem BCS, TokenRing tokenRing){
         //this.dsm = dsm;
         this.ID = ID;
         this.flag = flag;
         this.turn = turn;
         this.counter=counter;
         this.n = flag.length;
-        this.dsm = new DSM(localMem, BCS);
+        this.dsm = new DSM(localMem, tokenRing);
     }
     
     /**

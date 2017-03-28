@@ -11,13 +11,14 @@ import java.util.ArrayList;
 // Can be more than one TokenRing instances with diff token messages
 public class TokenRing implements Runnable{
 
-    private int tokenRingID;
+    private TokenRingAgent tokenRingID;
     private Token token;
     // Array of TokenRingAgents
     private ArrayList<TokenRingAgent> ringAgentList;
     private boolean isActive;
 
-    public TokenRing () {
+    public TokenRing (int tokenID) {
+        token.setID(tokenID);
         ringAgentList = new ArrayList<TokenRingAgent>();
         isActive = true;
     }
@@ -47,46 +48,34 @@ public class TokenRing implements Runnable{
             // Yield until TokenRingAgents are in the ringAgentList
             // This is basically a nop
         }
-
-        // PASS TOKEN
-        while(true){
-            // The token gets passed by iterating through the arrayList
-            // When it reaches the end of the list, it goes back to 0 to complete the loop
+        for(int i=0; i<10;i++){
+            // If first agent in arraylist, predecessor is last agent
+            if(i=0){
+                ringAgentList.get(i).setPredID(ringAgentList.get(9).getPID);
+                ringAgentList.get(i).setSuccID(ringAgentList.get(i+1).getPID);
+            }
+            // if last agent in arraylist, successor is first agent
+            else if(i=9) {
+                ringAgentList.get(i).setPredID(ringAgentList.get(i-1).getPID);
+                ringAgentList.get(i).setSuccID(ringAgentList.get(0).getPID);
+            }
+            // else predecessor = i-1, successor = i+1
+            else{
+                ringAgentList.get(i).setPredID(ringAgentList.get(i-1).getPID);
+                ringAgentList.get(i).setSuccID(ringAgentList.get(i+1).getPID);
+            }
         }
+
 
         // PASS TOKEN 
         // The token gets passed by iterating through the arrayList
-        // When it reaches the end of the list, it goes back to 0 to complete the loop
-        int x = ringAgentList.size()-1; 
-        int i = 0;
-        while(true){ // Never end the for loop
 
-            // The current token is in i and has to be passed
-            // This is the RingAgent that will send the token to the succ 
-            TokenRingAgent predecessor = ringAgentList.get(i);
+        while(true){ // Never end the whileloop
 
-            // Get successor. Special case if i = x
-            if( i == x){
-                TokenRingAgent successor = ringAgentList.get(0);
-            }else{
-                TokenRingAgent successor = ringAgentList.get((i + 1));
-            }
+            tokenRingID = ringAgentList.get(token.getID());
+            tokenRingID.SendToken(token); 
+            token.setID(ringAgentList.get(tokenRingID.ringSuccID).ReceiveToken());
 
-            predecessor.SendToken(token, successor); 
-
-            // If end of the arrayList, go back to beginning of arrayList
-            // otherwise, continue iterating through arrayList
-            if (i == x){
-                i = 0;
-            }else{
-                i++; 
-            }
-
-            // TODO
-            // I think here we can also set the succ, predecessor 
-            // So successor now is i since we already incremented i ; if we switch this to a whileLoop
-
-            
 
 
         }

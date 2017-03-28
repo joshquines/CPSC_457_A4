@@ -12,6 +12,10 @@ public class Main{
         BroadcastSystem BCS = BroadcastSystem.getBroadcastSys();
         new Thread(BCS).start();
         
+        TokenRing tokenRing = new TokenRing(0);
+        // start TokenRing thread
+        new Thread(tokenRing).start();
+
         //create flag and turn arrays
         int[] flag = new int[NPROCESSORS];
         int[] turn = new int[NPROCESSORS-1];
@@ -24,7 +28,7 @@ public class Main{
         
         // for each process, create a dsm and execute
         for(int i=0;i<NPROCESSORS;i++){
-            pool.execute(new Processor(i, flag, turn, counter, localMem, BCS));    
+            pool.execute(new Processor(i, flag, turn, counter, localMem, BCS, tokenRing));    
         }
         
         pool.shutdown();
