@@ -11,12 +11,17 @@ public class TokenRingAgent implements Runnable {
     //private boolean flagToken[];
     //flagToken[0] = true;
 
-    public TokenRingAgent (int processorID, boolean isActive) {
+    public TokenRingAgent (int processorID, boolean isActive, int tokenID) {
         this.processorID = processorID;
         this.isActive = isActive;
+        this.tokenID = tokenID;
     }
 
     public int ReceiveToken(Token token){
+
+        // Is this needed?
+        // get token int value from token?
+        // tokenStatus(sucessor, tokenID)
 
         // receive from succ 
         return token;
@@ -28,15 +33,15 @@ public class TokenRingAgent implements Runnable {
         this.token = token;
         this.successor = successor;
         successor.ReceiveToken(token);
+        tokenStatus(predecessor, -1);
+
 
     }
 
-    public int tokenStatus(TokenRingAgent tokenRingAgent, int tokenID){
+    public int TokenStatus(TokenRingAgent tokenRingAgent, int tokenID){
         this.tokenRingAgent = tokenRingAgent;
         this.tokenID = tokenID;
-        // Code to set tokenRingAgent's token ID
-        // We proably might need a dictionary type thing here 
-        // I was thinking something like <'TokenRingAgent[id2]',tokenID>
+        tokenRingAgent.tokenID = tokenID;
     }
 
 
