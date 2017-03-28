@@ -3,9 +3,10 @@
  */
 public class TokenRingAgent implements Runnable {
     
+    public Token token;
     public int tokenID, processorID, ringPredID, ringSuccID;
     public boolean isActive;
-    public boolean hasToken;
+    public volatile boolean hasToken;
     public TokenRing tokenRing;
     // Init 
     //private boolean flagToken[];
@@ -25,7 +26,8 @@ public class TokenRingAgent implements Runnable {
     // SEND THE TOKEN TO THE SUCC
     // syntax might be wrong, so it's probably kinda like psuedocode
     public void SendToken(Token token){
-        token.setID(ringSuccID);
+        tokenRing.ringAgentList.get(ringSuccID).token = token;
+        //token.setID(ringSuccID);
         hasToken = false;
     }
 

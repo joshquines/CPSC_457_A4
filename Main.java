@@ -5,6 +5,8 @@ public class Main{
     public static int counter= 0;
     public static void main(String[] args){
 
+        boolean dsmstore = true;
+
         // initialize local memory
         LocalMemory localMem = new LocalMemory();        
 

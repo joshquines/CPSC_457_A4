@@ -14,7 +14,7 @@ public class TokenRing implements Runnable{
     private TokenRingAgent tokenRingID;
     public static Token token;
     // Array of TokenRingAgents
-    private ArrayList<TokenRingAgent> ringAgentList;
+    public ArrayList<TokenRingAgent> ringAgentList;
     public boolean isActive;
     public static boolean flag;
 
@@ -65,10 +65,11 @@ public class TokenRing implements Runnable{
         // The token gets passed by iterating through the arrayList
 
         while(flag){ 
-        
+            while(!dsmstore){}
             tokenRingID = ringAgentList.get(token.getID());
             tokenRingID.SendToken(token); 
             //token.setID(ringAgentList.get(tokenRingID.ringSuccID).ReceiveToken());
+            
         }
 
         isActive = false;
