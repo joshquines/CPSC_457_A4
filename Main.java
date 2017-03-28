@@ -1,11 +1,16 @@
 import java.util.concurrent.*;
-
+/**
+ * Main class
+ * 
+ * @author 10129668 and 10138118
+ */
 public class Main{
     private static int NPROCESSORS = 10;
     public static int counter= 0;
+    public static volatile boolean dsmstore = false;
     public static void main(String[] args){
 
-        boolean dsmstore = true;
+        
 
         // initialize local memory
         LocalMemory localMem = new LocalMemory();        
@@ -14,7 +19,7 @@ public class Main{
         BroadcastSystem BCS = BroadcastSystem.getBroadcastSys();
         new Thread(BCS).start();
         
-        TokenRing tokenRing = new TokenRing(1);
+        TokenRing tokenRing = new TokenRing(1, dsmstore);
         // start TokenRing thread
         new Thread(tokenRing).start();
 

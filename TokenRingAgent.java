@@ -1,5 +1,9 @@
 /**
  * TokenRingAgent
+ * 
+ * Each Processor has a TokenRingAgent object
+ * 
+ * @author 10129668 and 10138118
  */
 public class TokenRingAgent implements Runnable {
     

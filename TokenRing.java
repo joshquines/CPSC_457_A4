@@ -1,5 +1,11 @@
 /**
  * TokenRing
+ * 
+ * This is the arrangement of the token ring. The token ring consists of individual TokenRingAgents. 
+ * The TokenRing, if active, creates the necessary token and passes it to an initially designated TokenRingAgent. 
+ * There can be more than one TokenRing instances, with different token messages.
+ * 
+ * @author 10129668 and 10138118
  */
 
 import java.util.concurrent.*;
@@ -17,11 +23,13 @@ public class TokenRing implements Runnable{
     public ArrayList<TokenRingAgent> ringAgentList;
     public boolean isActive;
     public static boolean flag;
+    public static boolean dsmstore;
 
-    public TokenRing (int tokenID) {
+    public TokenRing (int tokenID, boolean dsmstore) {
         token = new Token(tokenID);
         ringAgentList = new ArrayList<TokenRingAgent>();
         isActive = true;
+        this.dsmstore = dsmstore;
     }
 
     public void addRingAgent(TokenRingAgent ringAgent){
@@ -66,8 +74,10 @@ public class TokenRing implements Runnable{
 
         while(flag){ 
             while(!dsmstore){}
+
             tokenRingID = ringAgentList.get(token.getID());
             tokenRingID.SendToken(token); 
+            dsmstore = false;
             //token.setID(ringAgentList.get(tokenRingID.ringSuccID).ReceiveToken());
             
         }
