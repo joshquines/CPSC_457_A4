@@ -1,39 +1,19 @@
-
 /**
- * name
+ * Processor class
+ * 
+ * This class represents a processor. 
+ * Each processor is executed in a separate thread. 
+ * It has an object of type DSM.
  */
- 
- /*
- 
- IMPLEMENTATION
- 
- N = levels
- player[id] = id 
- playerBoard[id] = -1 //aka the flag aray to check if there are processes at higher levels
- 
- 
- Board[n] = latest player to arrive or null if empty
- If player reaches level n:
-    board[n] = player[id] //aka the turn[] array 
-    playerBoard[id] = n //each player can read each other's board 
-    
- 
- 
- */
- 
  
 public class Processor implements Runnable{
 
-    //private int turn;
-    //private int processes; // # of processes 
-    private int[] flag; //playerBoard 
-    private int[] turn; //levelBoard
-    private int ID;
-    //private int i;
-    private int j;
-    private int n; // # of processes
-    public static int counter; 
-    private boolean exists;
+    private int[] flag;         //playerBoard 
+    private int[] turn;         //levelBoard
+    private int ID;             // Processor ID
+    private int n;              // # of processes
+    public static int counter;  // turn counter
+    private boolean exists;     // flag for Peterson's Algorithm
 
     private DSM dsm;
     
@@ -47,30 +27,25 @@ public class Processor implements Runnable{
         this.dsm = new DSM(localMem, BCS);
     }
     
+    /**
+     * Peterson's Algorithm used as the Entry Section
+     */
     public synchronized void lock(){
         // processes will be stuck here until they get to level n (crit section)
         // so the ones that exit lock() are in the critical section
         // Algorithm from tutorial slides
-        for(j=0; j < n-2; j++){
+        for(int j = 0; j < n-2; j++){
             flag[ID] = j; //player writes level j to their playerBoard 
             turn[j] = ID; //player writes id to level j board 
             
             //While there is another process at a higher level and the board at the
             //current level has the id of ith player on the level board
             //stay in current level 
-            
-            //Loop through all the players 
-            /*
-            for(int k = 0; k < processes; i++){
-                while((flag[k] >= j) && (turn[i] == j)){
-                    nop; 
-                }
-            }
-            */
+
             // Code from Critical Sections Slide 68
             do {
 	            exists = false;
-	            for (int k = 0; k < n; k ++){
+	            for (int k = 0; k < n; k++){
 	                if (k != ID){                       // if there exists a k != i
 	                    if (flag[k] >= j) {             // at a higher level
 		                    exists = true;             
@@ -83,44 +58,48 @@ public class Processor implements Runnable{
         }
     }
     
+    /**
+     * Exit Section
+     */
     public synchronized void unlock(){
-        // player writes -1 to personal board 
-        // I think this is after player[i] reaches critical section 
+        //System.out.println("unlocking algorithm");
         flag[ID] = -1;     
     }
 	
 
-    public synchronized void run(){
+    public void run(){
+        // Create DSM Thread for this Processor
         new Thread(dsm).start();
+        
         // ENTRY SECTION
+        System.out.println("Process " + ID + " entering ENTRY SECTION");
         lock();
+        
+        // sleep to break Peterson's Algorithm
+        try {
+            Thread.currentThread().sleep(500);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         //CRITICAL SECTION
-        /*
-        Write current process to ID 
-        */
-        String turnID = "turn " + counter;
-        
+
+        String turnID = "turn " + counter;        
         System.out.println("Process " + ID + " has entered the critical section on " + turnID);
 
-        
-        /*
-        dsm.store(key,val)
-        - stores to localMemory 
-        - calls broadcastAgent
-        */
-
+        // sleep to break Peterson's Algorithm
+        try {
+            Thread.currentThread().sleep(500);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        // store turn = i to local memory
         dsm.store(turnID, ID);
+        // increase turn counter
         counter++;
 
         // EXIT SECTION 
+        System.out.println("Process "+ ID + " entering EXIT SECTION");
         unlock();
-        
-            
-        // maybe 
-        // lock();
-        // critical section
-        // unlock();
-
     }
 }
