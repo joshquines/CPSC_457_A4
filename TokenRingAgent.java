@@ -55,6 +55,7 @@ public class TokenRingAgent implements Runnable {
     public void run(){
         while(isActive){
             if(tokenRing.token.getID() == processorID){
+                System.out.println("Processor " + processorID + "has token");
                 hasToken = true;
             }
         }

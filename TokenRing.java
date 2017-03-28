@@ -22,7 +22,7 @@ public class TokenRing implements Runnable{
     // Array of TokenRingAgents
     public ArrayList<TokenRingAgent> ringAgentList;
     public boolean isActive;
-    public static boolean flag;
+    public static boolean flag = true;
     public static boolean dsmstore;
 
     public TokenRing (int tokenID, boolean dsmstore) {

@@ -37,7 +37,7 @@ public class DSM implements Runnable{
     public synchronized void store(String key,int value){
         System.out.println("trying to store");
         dsmstore = false;
-        while(!tokenRingAgent.hasToken){ System.out.println("checking token");}
+        while(!this.tokenRingAgent.hasToken){ System.out.println("checking token");}
         // store to Local Memory
         this.localMem.store(key,value);
         // broadcast to all other DSMs
