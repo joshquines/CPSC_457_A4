@@ -35,6 +35,7 @@ public class Processor implements Runnable{
         // processes will be stuck here until they get to level n (crit section)
         // so the ones that exit lock() are in the critical section
         // Algorithm from tutorial slides
+        System.out.println("entering lock " + ID);
         for(int j = 0; j < n-2; j++){
             flag[ID] = j; //player writes level j to their playerBoard 
             turn[j] = ID; //player writes id to level j board 

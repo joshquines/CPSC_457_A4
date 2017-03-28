@@ -29,9 +29,18 @@ public class TokenRingAgent implements Runnable {
         hasToken = false;
     }
 
-    public void getPID(){
+    public void setPredID(int ID){
+        this.ringPredID = ID;
+    }
+
+    public void setSuccID(int ID){
+        this.ringSuccID = ID;
+    }
+
+    public int getPID(){
         return processorID;
     }
+
 
     public void setActive(boolean isActive){
         this.isActive = isActive;

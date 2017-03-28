@@ -31,17 +31,20 @@ public class DSM implements Runnable{
     }
     
     public void store(String key,int value){
-        while(tokenRingAgent.hasToken){
+        System.out.println("trying to store");
+        while(!tokenRingAgent.hasToken){ System.out.println("checking token");}
             // store to Local Memory
             this.localMem.store(key,value);
             // broadcast to all other DSMs
             broadCastAgent.broadcast(key,value);
-        }
+            System.out.println("stored (" + key + "," + value + ")");
+        
     }
 
     public void run(){
         // start BroadcastAgent Thread
         new Thread(broadCastAgent).start();
+        new Thread(tokenRingAgent).start();
         while(bcs.flag){}
     }
 }
