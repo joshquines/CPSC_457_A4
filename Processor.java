@@ -4,6 +4,8 @@
  * This class represents a processor. 
  * Each processor is executed in a separate thread. 
  * It has an object of type DSM.
+ * 
+ * @author 10129668 and 10138118
  */ 
 public class Processor implements Runnable{
 

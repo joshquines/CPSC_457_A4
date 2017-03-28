@@ -2,6 +2,8 @@
  * QueueItem class
  * 
  * Used for BroadcastSystem queue
+ * 
+ * @author 10129668 and 10138118
  */
 public class QueueItem{
     public String key;

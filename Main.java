@@ -1,4 +1,9 @@
 import java.util.concurrent.*;
+/**
+ * Main class
+ * 
+ * @author 10129668 and 10138118
+ */
 public class Main{
     private static int NPROCESSORS = 10;
     public static int counter= 0;

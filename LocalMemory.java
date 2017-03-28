@@ -7,6 +7,8 @@ import java.util.concurrent.*;
  * This class represents the local replica. It has the following methods:
  * load(x): returns the value of x read from memory 
  * store(x,v): stores the value v of x to memory 
+ * 
+ * @author 10129668 and 10138118
  */
 public class LocalMemory{
 

@@ -5,6 +5,8 @@
  * load(x): returns the value of x read from the local memory
  * store(x,v): writes v into x in the local memory and broadcasts 
  *             a message to all other DSMs to apply the write locally in their replicas
+ * 
+ * @author 10129668 and 10138118
  */
 public class DSM implements Runnable{
     private LocalMemory localMem;

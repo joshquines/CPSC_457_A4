@@ -5,6 +5,8 @@ import java.util.concurrent.*;
  * 
  * Provides the implementation of the broadcast mechanism needed by DSM. 
  * Each agent executes in a separate thread.
+ * 
+ * @author 10129668 and 10138118
  */
 public class BroadcastAgent implements Runnable{
     
