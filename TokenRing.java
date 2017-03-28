@@ -57,19 +57,38 @@ public class TokenRing implements Runnable{
         // PASS TOKEN 
         // The token gets passed by iterating through the arrayList
         // When it reaches the end of the list, it goes back to 0 to complete the loop
-        int x = ringAgentList.size();
+        int x = ringAgentList.size()-1; 
         int i = 0;
-        for (i = 0; i < (x + 1); i++){ // Never end the for loop
+        while(true){ // Never end the for loop
 
             // The current token is in i and has to be passed
             // This is the RingAgent that will send the token to the succ 
             TokenRingAgent predecessor = ringAgentList.get(i);
-            predecessor.sendToken(token, ringAgentList); 
 
-            // If end of the arrayList, go back to beginning to keep forLoop running
+            // Get successor. Special case if i = x
+            if( i == x){
+                TokenRingAgent successor = ringAgentList.get(0);
+            }else{
+                TokenRingAgent successor = ringAgentList.get((i + 1));
+            }
+
+            predecessor.SendToken(token, successor); 
+
+            // If end of the arrayList, go back to beginning of arrayList
+            // otherwise, continue iterating through arrayList
             if (i == x){
                 i = 0;
+            }else{
+                i++; 
             }
+
+            // TODO
+            // I think here we can also set the succ, predecessor 
+            // So successor now is i since we already incremented i ; if we switch this to a whileLoop
+
+            
+
+
         }
     }
 }
