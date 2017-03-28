@@ -18,11 +18,11 @@ public class DSM implements Runnable{
      *  @param lm       reference to local memory
      *  @param BCS      reference to BroadcastSystem
      */
-    public DSM(LocalMemory lm, BroadcastSystem BCS, TokenRing tokenRing){
+    public DSM(LocalMemory lm, BroadcastSystem BCS, int ID, TokenRing tokenRing){
         this.bcs = bcs;
         localMem = lm;
         broadCastAgent = new BroadcastAgent(BCS, localMem);
-        tokenRingAgent = new TokenRingAgent(ID, tokenRing.isActive, tokenRing.token.getID());
+        tokenRingAgent = new TokenRingAgent(ID, tokenRing);
         
     }
 
@@ -31,10 +31,12 @@ public class DSM implements Runnable{
     }
     
     public void store(String key,int value){
-        // store to Local Memory
-        this.localMem.store(key,value);
-        // broadcast to all other DSMs
-        broadCastAgent.broadcast(key,value);
+        while(tokenRingAgent.hasToken){
+            // store to Local Memory
+            this.localMem.store(key,value);
+            // broadcast to all other DSMs
+            broadCastAgent.broadcast(key,value);
+        }
     }
 
     public void run(){

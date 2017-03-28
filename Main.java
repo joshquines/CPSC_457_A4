@@ -35,6 +35,7 @@ public class Main{
         // stop BroadcastSystem Thread
         BCS.flag = false;
 	    // Wait until all threads are finish
+        TokenRing.flag = false;
 		while (!pool.isTerminated()) {		}
 
         System.out.println("All Processes are finished");

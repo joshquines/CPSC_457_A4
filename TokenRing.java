@@ -12,10 +12,11 @@ import java.util.ArrayList;
 public class TokenRing implements Runnable{
 
     private TokenRingAgent tokenRingID;
-    private Token token;
+    public Token token;
     // Array of TokenRingAgents
     private ArrayList<TokenRingAgent> ringAgentList;
-    private boolean isActive;
+    public boolean isActive;
+    public static boolean flag;
 
     public TokenRing (int tokenID) {
         token.setID(tokenID);
@@ -34,13 +35,6 @@ public class TokenRing implements Runnable{
         return ringAgentList;
     }
 
-    public void setStatus(){
-
-
-
-    }
-
-
     // RING TOKEN'S MAIN PURPOSE
     // PASS THE TOKEN IN THE TOKEN RING
     public void run(){
@@ -50,12 +44,12 @@ public class TokenRing implements Runnable{
         }
         for(int i=0; i<10;i++){
             // If first agent in arraylist, predecessor is last agent
-            if(i=0){
+            if(i==0){
                 ringAgentList.get(i).setPredID(ringAgentList.get(9).getPID);
                 ringAgentList.get(i).setSuccID(ringAgentList.get(i+1).getPID);
             }
             // if last agent in arraylist, successor is first agent
-            else if(i=9) {
+            else if(i==9) {
                 ringAgentList.get(i).setPredID(ringAgentList.get(i-1).getPID);
                 ringAgentList.get(i).setSuccID(ringAgentList.get(0).getPID);
             }
@@ -70,15 +64,13 @@ public class TokenRing implements Runnable{
         // PASS TOKEN 
         // The token gets passed by iterating through the arrayList
 
-        while(true){ // Never end the whileloop
+        while(flag){ // Never end the whileloop
 
             tokenRingID = ringAgentList.get(token.getID());
             tokenRingID.SendToken(token); 
             token.setID(ringAgentList.get(tokenRingID.ringSuccID).ReceiveToken());
-
-
-
         }
+
     }
 }
 

@@ -25,7 +25,7 @@ public class Processor implements Runnable{
         this.turn = turn;
         this.counter=counter;
         this.n = flag.length;
-        this.dsm = new DSM(localMem, tokenRing);
+        this.dsm = new DSM(localMem, BCS, ID, tokenRing);
     }
     
     /**
