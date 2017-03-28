@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class TokenRing implements Runnable{
 
     private TokenRingAgent tokenRingID;
+    private TokenRingAgent blah;
     public static Token token;
     // Array of TokenRingAgents
     public ArrayList<TokenRingAgent> ringAgentList;
@@ -35,6 +36,7 @@ public class TokenRing implements Runnable{
     public void addRingAgent(TokenRingAgent ringAgent){
         // add RingAgent to ArrayList
         ringAgentList.add(ringAgent);
+        System.out.println("ADDED A RINGAGENT TO LIST");
         ringAgent.setActive(isActive);
         
     }
@@ -46,11 +48,14 @@ public class TokenRing implements Runnable{
     // RING TOKEN'S MAIN PURPOSE
     // PASS THE TOKEN IN THE TOKEN RING
     public void run(){
-        while (ringAgentList.size() != 10){
+        while (ringAgentList.size() < 10){
             // Yield until TokenRingAgents are in the ringAgentList
             // This is basically a nop
+            System.out.println("THE NOP LOOP " + ringAgentList.size());
         }
+
         for(int i=0; i<10;i++){
+            System.out.println("THE FOR LOOP");
             // If first agent in arraylist, predecessor is last agent
             if(i==0){
                 ringAgentList.get(i).setPredID(ringAgentList.get(9).getPID());
@@ -72,15 +77,55 @@ public class TokenRing implements Runnable{
         // PASS TOKEN 
         // The token gets passed by iterating through the arrayList
 
+        System.out.println("BEFORE WHILE LOOP");
+        
+        /*
         while(flag){ 
-            while(!dsmstore){System.out.println("not stored");}
+            System.out.println("ADSHFASDFASLJKDFSDAF");
+            //while(!dsmstore){System.out.println("not stored");}
             System.out.println("sending token to successor");
             tokenRingID = ringAgentList.get(token.getID());
+            blah = ringAgentList.get(tokenRingID.getSuccID());
             tokenRingID.SendToken(token); 
+            blah.hasToken = true;
+            System.out.println("succ has token now");
+            //tokenRingID.hasToken = false;
             dsmstore = false;
-            //token.setID(ringAgentList.get(tokenRingID.ringSuccID).ReceiveToken());
-            
+            System.out.println("80: dsmstore = false TokenRing");
+            //token.setID(ringAgentList.get(tokenRingID.ringSuccID).ReceiveToken()); 
         }
+        */
+        int io = 0;
+
+        while(io < 10){
+            System.out.println("NEW INDEX DFSLJADSKJFSDAFSDA: " + io);
+            //ringAgentList.get(io ).hasToken = false;
+            ringAgentList.get(io).hasToken = true;
+
+            if (io == 9){
+                io = 0;
+            }
+            io++;
+                if (flag == false){
+                    break;
+                }
+            }
+
+
+        /*
+        while(flag){
+            int i = 0;
+            while (i < 7){
+
+                tokenRingID = ringAgentList.get(i);
+                blah = ringAgentList.get(i + 1);
+                blah.hasToken = true;
+                dsmstore = true;
+                if (i == 5){
+                    i = 0;
+                }
+            }
+        }*/
 
         isActive = false;
         // stop all TokenRingAgents

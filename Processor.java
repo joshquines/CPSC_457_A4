@@ -52,7 +52,7 @@ public class Processor implements Runnable{
 	            for (int k = 0; k < n; k++){
 	                if (k != ID){                       // if there exists a k != i
 	                    if (flag[k] >= j) {             // at a higher level
-		                    exists = true;             
+		                    exists = true;          
 		                    break; 
 	                    }
                     }

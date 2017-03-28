@@ -21,6 +21,10 @@ public class TokenRingAgent implements Runnable {
         this.tokenRing = tokenRing;
         this.isActive = tokenRing.isActive;
         this.tokenID = tokenRing.token.getID();
+        System.out.println("try add");
+        tokenRing.addRingAgent(this);
+        System.out.println("it added");
+        
     }
 
     public int ReceiveToken(){
@@ -30,7 +34,9 @@ public class TokenRingAgent implements Runnable {
     // SEND THE TOKEN TO THE SUCC
     // syntax might be wrong, so it's probably kinda like psuedocode
     public void SendToken(Token token){
+        System.out.println("WE ARE MAYBE SENDING THE TOKEN");
         tokenRing.ringAgentList.get(ringSuccID).token = token;
+        tokenRing.ringAgentList.get(ringSuccID).hasToken = true;
         //token.setID(ringSuccID);
         hasToken = false;
     }
@@ -43,10 +49,18 @@ public class TokenRingAgent implements Runnable {
         this.ringSuccID = ID;
     }
 
+     public int getSuccID(){
+        return this.ringSuccID;
+    }
+
+    public boolean hasTokenM(){
+        return this.hasToken;
+    }
+
+
     public int getPID(){
         return processorID;
     }
-
 
     public void setActive(boolean isActive){
         this.isActive = isActive;
@@ -54,11 +68,19 @@ public class TokenRingAgent implements Runnable {
     
     public void run(){
         while(isActive){
-            if(tokenRing.token.getID() == processorID){
-                System.out.println("Processor " + processorID + "has token");
-                hasToken = true;
+            //System.out.println(processorID + " is active");
+            int thisId = this.processorID;
+            boolean x = this.hasToken;
+            while (!x){
+                //System.out.println("not x");
             }
+            /*
+            if(tokenRing.token.getID() == processorID){
+                //System.out.println("Processor " + processorID + " has token");
+                hasToken = true;
+            }*/
         }
+        System.out.println(processorID + " not active anymore");
     }
     
 }
