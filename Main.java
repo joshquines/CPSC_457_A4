@@ -3,13 +3,17 @@ public class Main{
     private static int NPROCESSORS = 10;
     public static int counter= 0;
     public static void main(String[] args){
+        //test
+
+        //static int counter = 0;
 
         // initialize local memory
-        LocalMemory localMem = new LocalMemory();        
+        LocalMemory localMemory = new LocalMemory();        
 
         // Start BroadcastSystem thread
         BroadcastSystem BCS = BroadcastSystem.getBroadcastSys();
         new Thread(BCS).start();
+        //new BCS().currentThread().start();
         
         //create flag and turn arrays
         int[] flag = new int[NPROCESSORS];
@@ -20,18 +24,17 @@ public class Main{
         
         // create thread pool
         ExecutorService pool = Executors.newFixedThreadPool(NPROCESSORS);
+        //Processor[] procArray = new Processor[10];
         
         // for each process, create a dsm and execute
         for(int i=0;i<NPROCESSORS;i++){
-            pool.execute(new Processor(i, flag, turn, counter, localMem, BCS));    
+            //DSM dsm  = new DSM(localMemory, BCS);
+            pool.execute(new Processor(i, flag, turn, counter, localMemory, BCS));    
         }
         
         pool.shutdown();
-        // stop BroadcastSystem Thread
-        BCS.flag = false;
 	    // Wait until all threads are finish
 		while (!pool.isTerminated()) {		}
-
         System.out.println("All Processes are finished");
     }
 }
