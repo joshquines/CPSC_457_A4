@@ -1,3 +1,8 @@
+/**
+ * QueueItem class
+ * 
+ * Used for BroadcastSystem queue
+ */
 public class QueueItem{
     public String key;
     public int value;
